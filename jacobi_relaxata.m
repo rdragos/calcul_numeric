@@ -127,14 +127,7 @@
 % x
 % z
 
-
-
-
-
-%   0.8x - 0.4y = 41
-%  -0.4x + 0.8y - 0.4z = 25
-% -0.4y + 0.8z = 105
-
+% format long eng
 n = 10;
 A = zeros(n);
 b = ones(n,1);
@@ -150,7 +143,7 @@ end
 
 % error tolerance
 
-tol = pow2(10,-10);
+tol = 0.0000000001;
 
 %initial guess:
 x0 = zeros(n,1);
@@ -180,34 +173,39 @@ pas_j
 
 %Gauss?Seidel:
 %---------------
-
-lambda=1.2;
+maxiter = 1000;
+lambda=1;
 n=length(x0);
 x=x0;
-error=1;
+error_gs=0.1;
 iter = 0;
-maxiter = 1000;
-while (error>tol && iter<maxiter)
-    xold=x;
-    for i=1:n
-        I = [1:i-1 i+1:n];
-        x(i) = (1-lambda)*x(i)+lambda/A(i,i)*( b(i)-A(i,I)*x(I) );
+while (error_gs>tol)
+    if iter<maxiter
+        xold=x;
+        for i=1:n
+            I = [1:i-1 i+1:n];
+            x(i) = (1-lambda)*x(i)+lambda/A(i,i)*( b(i)-A(i,I)*x(I) );
+        end
+        error_gs = norm(x-xold)/norm(x);
+        iter = iter+1;
+    else
+        return
     end
-    error = norm(x-xold)/norm(x);
-    iter = iter+1;
 end
 
 x_siedal =x
+iter
+% error_gs
 
 
 
 % gradient
-maxiter = 1000;
 
  [gradient_m,flag,relres,iter,resvec] = pcg(A,b,tol,maxiter);
  
- gradient_m
- %iter
- 
- rotatii_m = eig(A);
- rotatii_m
+gradient_m
+%  iter
+
+% rotatii
+
+rotatii = eig(A)
