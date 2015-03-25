@@ -1,6 +1,7 @@
+%preventing Octave recognizing as a function file
+1;
 
-
-function retval = my_norm(A)
+function [retval] = my_norm(A)
   num_rows = size(A)(1);
   num_columns = size(A)(2);
 
@@ -14,8 +15,9 @@ function retval = my_norm(A)
     end
   end
   retval = sqrt(retval);
-end
-function metoda_rotatii(A, B)
+endfunction
+
+function [] = rotating_solve(A, B)
   %no idea why this works
 	how_many = 0;
 
@@ -65,7 +67,7 @@ function metoda_rotatii(A, B)
 
   %toy_matrix
   [V, lambda] = eig(A);
-  printf("Octave gives me; then Octave gives me; \n");
+  printf("Octave gives me; then custom method gives me; \n");
   lambda = sort(diag(lambda));
   fake_lambda = sort(diag(toy_matrix));
   for i = 1:size(lambda)(1)
@@ -75,19 +77,3 @@ function metoda_rotatii(A, B)
 
 endfunction
 
-
-
-test = [10; 20; 50; 100];
-for idx = 1:size(test)(1)
-	%equation matrix
-  printf("Running on test %d \n", test(idx));
-  dimension = test(idx);
-	A = eye(test(idx)) * 2;
-  for i = 1:(dimension - 1)
-    A(i, i + 1) = 1;
-    A(i + 1, i) = 1;
-  end
-	%column vector
-	B = ones(test(idx))(:,1);
-	metoda_rotatii(A, B);
-endfor
