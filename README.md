@@ -1,2 +1,4 @@
 # calcul_numeric
-Teme
+
+To Run:
+  octave main.m
